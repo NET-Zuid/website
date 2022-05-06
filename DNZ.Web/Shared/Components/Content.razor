@@ -1,0 +1,37 @@
+﻿@inject HttpClient _httpClient;
+
+<div class="container">
+    @if (_content == null)
+    {
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>@_content.Title</h3>
+
+        <PageTitle>.NET Zuid - @_content.Title</PageTitle>
+        <div class="row">
+            <div class="col">
+                @((MarkupString)_content.HtmlContent)
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Name { get; set; }
+    
+    private ContentModel? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _content = await _httpClient.GetFromJsonAsync<ContentModel>($"content/{Name}");
+    }
+}

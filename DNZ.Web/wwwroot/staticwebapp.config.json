@@ -1,0 +1,36 @@
+{
+  "routes": [
+    {
+      "route": "/profile",
+      "allowedRoles": [ "authenticated" ]
+    },
+    {
+      "route": "/admin/*",
+      "allowedRoles": [ "administrator" ]
+    },
+    {
+      "route": "/images/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    },
+    {
+      "route": "/api/*",
+      "methods": [ "PUT", "POST", "PATCH", "DELETE" ],
+      "allowedRoles": [ "administrator" ]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [ "/images/*.{png,jpg,gif,webp}", "/css/*" ]
+  },
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+  }
+}

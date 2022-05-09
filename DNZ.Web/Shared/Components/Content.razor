@@ -32,6 +32,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _content = await _httpClient.GetFromJsonAsync<ContentModel>($"content/{Name}");
+        _content = await _httpClient.GetFromJsonAsync<ContentModel>($"api/content/{Name}");
     }
 }

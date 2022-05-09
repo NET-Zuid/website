@@ -30,7 +30,7 @@ namespace DNZ.API.Functions
         [FunctionName(nameof(GetContentFunction))]
         public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "content/{name}")] HttpRequest req,
-            [Table("Content", ContentEntity.PARTITION_KEY, "{name}")] ContentModel content)
+            [Table("Content", ContentEntity.PARTITION_KEY, "{name}", Connection = "storageConnectionString")] ContentModel content)
         {
             return new OkObjectResult(_mapper.Map<ContentModel>(content));
         }

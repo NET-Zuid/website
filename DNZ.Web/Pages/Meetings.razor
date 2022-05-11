@@ -1,0 +1,50 @@
+﻿@page "/meetings"
+@inject HttpClient _httpClient;
+
+<PageTitle>.NET Zuid - Meetings</PageTitle>
+
+<div class="container">
+    <div class="row">
+        <h1>Meetings</h1>
+        <p>You can find all of our meetings right here.</p>
+    </div>
+    @if (_meetings != null)
+    {
+        <div class="row">
+            @foreach (var meeting in _meetings)
+            {
+                <div class="col-2">
+                    <figure class="figure">
+                        <img src="@meeting.ImageUrl" class="figure-img img-fluid rounded" alt="@meeting.Speaker" />
+                        <figcaption class="figure-caption">@meeting.Speaker</figcaption>
+                    </figure>
+                </div>
+                <div class="col-7">
+                    <h2>@meeting.Headline</h2>
+                </div>
+                <div class="col-3">
+                    <h3>@meeting.StartDateTime.ToString("dddd MMMM dd, yyyy")</h3>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private MeetingModel[] _meetings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _meetings = await _httpClient.GetFromJsonAsync<MeetingModel[]>("/api/meetings");
+    }
+}

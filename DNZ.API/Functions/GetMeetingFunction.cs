@@ -13,7 +13,7 @@ namespace DNZ.API.Functions
         [FunctionName("GetMeetingFunction")]
         public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "meetings/{partitionKey}/{rowKey}")] HttpRequest req,
-            [Table(nameof(MeetingModel), "{partitionKey}", "{rowKey}", Connection = "storageConnectionString")] MeetingEntity meetingEntity)
+            [Table("meetings", "{partitionKey}", "{rowKey}", Connection = "storageConnectionString")] MeetingEntity meetingEntity)
         {
             return new OkObjectResult(meetingEntity);
         }

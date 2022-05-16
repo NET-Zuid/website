@@ -1,7 +1,67 @@
 ﻿@page "/contact"
+@inject HttpClient _httpClient;
 
-<Content Name="contact" />
+<div class="row">
+    <div class="col">
+        <Content Name="contact" />
+        <div class="text-end">
+            <a target="_blank" href="https://twitter.com/dotNetZuid"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/company/stichting-net-zuid"><i class="fa fa-linkedin"></i></a>
+        </div>
+    </div>
+    <div class="col">
+
+    <EditForm Model="@_contactModel" OnValidSubmit="HandleValidSubmitAsync">
+        <DataAnnotationsValidator />
+        <div class="row mb-3">
+            <div class="col-3">
+                <label class="form-label" for="name">Naam</label>
+            </div>
+            <div class="col-9">
+                <InputText id="name" class="form-control" @bind-Value="_contactModel.Name" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label class="form-label" for="email">E-mail adres</label>
+            </div>
+            <div class="col-9">
+                <InputText type="email" id="email" class="form-control" @bind-Value="_contactModel.Email" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label class="form-label" for="message">Bericht</label>
+            </div>
+            <div class="col-9">
+                <InputTextArea id="message" Text class="form-control" @bind-Value="_contactModel.Message" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-end">
+                <input type="submit" class="btn btn-primary" value="Verzenden" disabled="@_busy"/>
+            </div>
+        </div>
+    </EditForm>
+    
+    
+    </div>
+</div>
 
 @code {
+    private bool _busy = false;
+    private ContactModel _contactModel = new ContactModel();
+    private string? _message { get; set; }
 
+    private async Task HandleValidSubmitAsync()
+    {
+        _busy = true;
+        var result = await _httpClient.PostAsJsonAsync("/api/contact", _contactModel);
+        _busy = false;
+        if (result.IsSuccessStatusCode)
+        {
+            _contactModel = new ContactModel();
+            _message = "Je bericht werd succesvol verstuurd.";
+        }
+    }
 }

@@ -16,7 +16,7 @@ using DNZ.Common.TableEntities;
 
 namespace DNZ.API.Functions
 {
-    public class GetMeetingsFunction
+    public class GetMeetings
     {
         #region Fields
 
@@ -26,7 +26,7 @@ namespace DNZ.API.Functions
 
         #region Constructors
 
-        public GetMeetingsFunction(IMapper mapper)
+        public GetMeetings(IMapper mapper)
         {
             _mapper = mapper;
         }

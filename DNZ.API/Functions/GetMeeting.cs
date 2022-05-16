@@ -8,7 +8,7 @@ using DNZ.Common.TableEntities;
 
 namespace DNZ.API.Functions
 {
-    public static class GetMeetingFunction
+    public static class GetMeeting
     {
         [FunctionName("GetMeetingFunction")]
         public static IActionResult Run(

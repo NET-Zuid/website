@@ -10,7 +10,7 @@ using DNZ.Common.TableEntities;
 
 namespace DNZ.API.Functions
 {
-    public class GetContentFunction
+    public class GetContent
     {
         #region Fields
 
@@ -20,14 +20,14 @@ namespace DNZ.API.Functions
 
         #region Constructor
 
-        public GetContentFunction(IMapper mapper)
+        public GetContent(IMapper mapper)
         {
             _mapper = mapper;
         }
 
         #endregion
 
-        [FunctionName(nameof(GetContentFunction))]
+        [FunctionName(nameof(GetContent))]
         public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "content/{name}")] HttpRequest req,
             [Table("Content", ContentEntity.PARTITION_KEY, "{name}", Connection = "storageConnectionString")] ContentModel content)

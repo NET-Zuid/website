@@ -36,7 +36,7 @@ namespace DNZ.API.Functions
         [FunctionName("GetMeetingsFunction")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "meetings")] HttpRequest req,
-            [Table(nameof(MeetingModel), Connection = "storageConnectionString")] CloudTable cloudTable,
+            [Table("meetings", Connection = "storageConnectionString")] CloudTable cloudTable,
             ILogger log)
         {
             var entities = new List<MeetingEntity>();

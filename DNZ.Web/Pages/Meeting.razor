@@ -1,6 +1,29 @@
-﻿@page "/meeting/{}"
-<h3>Meeting</h3>
+﻿@page "/meeting/{year}/{slug}"
+@inject HttpClient _httpClient;
+
+@if (_meeting != null)
+{
+    <PageTitle>.NET Zuid - @_meeting.Headline</PageTitle>
+
+    <div class="row">
+        <h1>@_meeting.Headline</h1>
+        <p>@_meeting.Description</p>
+    </div>
+}
+else
+{
+    <p>Load this!</p>
+}
+
 
 @code {
+    [Parameter] public string? year { get; set; }
+    [Parameter] public string? slug { get; set; }
 
+    private MeetingModel _meeting;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _meeting = await _httpClient.GetFromJsonAsync<MeetingModel>($"/api/meetings/{year}/{slug}");
+    }
 }

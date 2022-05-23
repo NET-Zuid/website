@@ -19,10 +19,11 @@
                 </figure>
             </div>
             <div class="col-7">
-                <h2>@meeting.Headline</h2>
+                <h2><a href="@($"/meeting/{meeting.Year}/{meeting.Slug}")">@meeting.Headline</a></h2>
             </div>
             <div class="col-3">
                 <h3>@meeting.StartDateTime.ToString("dddd MMMM dd, yyyy")</h3>
+                @($"{meeting.Address}.")
             </div>
         }
     </div>

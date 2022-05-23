@@ -33,7 +33,7 @@ namespace DNZ.API.Functions
 
         #endregion
 
-        [FunctionName("GetMeetingsFunction")]
+        [FunctionName(nameof(GetMeetings))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "meetings")] HttpRequest req,
             [Table("meetings", Connection = "storageConnectionString")] CloudTable cloudTable,
@@ -50,7 +50,7 @@ namespace DNZ.API.Functions
             } while (querySegment.ContinuationToken != null);
 
 
-            return new OkObjectResult(entities);
+            return new OkObjectResult(_mapper.Map<List<MeetingModel>>(entities));
         }
     }
 }

@@ -4,9 +4,11 @@ namespace DNZ.Common.Models
 {
     public class MeetingModel
     {
-        public string Headline { get; set; }
+        public string Year { get; set; }
 
         public string Slug { get; set; }
+
+        public string Headline { get; set; }
 
         public string Description { get; set; }
 

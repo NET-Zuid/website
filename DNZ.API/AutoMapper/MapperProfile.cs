@@ -10,6 +10,8 @@ namespace DNZ.API.AutoMapper
         public MapperProfile()
         {
             CreateMap<ContentEntity, ContentModel>();
+            CreateMap<MeetingEntity, MeetingModel>()
+                .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.PartitionKey));
         }
     }
 }

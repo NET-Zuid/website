@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using DNZ.Common.Helpers;
 
-using Microsoft.Azure.Cosmos.Table;
 
 namespace DNZ.Common.TableEntities
 {
-    public class MeetingEntity : TableEntity
+    public class MeetingEntity : BaseTableEntity
     {
         #region Fields
 
@@ -17,7 +17,7 @@ namespace DNZ.Common.TableEntities
 
         #region Properties
 
-        [IgnoreProperty]
+        [IgnoreDataMember]
         public string Slug
         { 
             get => RowKey;

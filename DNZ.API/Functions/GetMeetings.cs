@@ -1,10 +1,9 @@
-using System;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Collections.Generic;
 
+using Azure.Data.Tables;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -34,23 +33,14 @@ namespace DNZ.API.Functions
         #endregion
 
         [FunctionName(nameof(GetMeetings))]
-        public async Task<IActionResult> Run(
+        public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "meetings")] HttpRequest req,
-            [Table("meetings", Connection = "storageConnectionString")] CloudTable cloudTable,
+            [Table("meetings", Connection = "storageConnectionString")] TableClient tableClient,
             ILogger log)
         {
-            var entities = new List<MeetingEntity>();
-            TableQuerySegment<MeetingEntity> querySegment = null;
-            var query = new TableQuery<MeetingEntity>().Where(TableQuery.GenerateFilterCondition(nameof(ITableEntity.PartitionKey), QueryComparisons.Equal, DateTime.Now.Year.ToString()));
+            var meetings = tableClient.Query<MeetingEntity>().OrderByDescending(o => o.StartDateTime).ToList();
 
-            do
-            {
-                querySegment = await cloudTable.ExecuteQuerySegmentedAsync(query, querySegment?.ContinuationToken);
-                entities.AddRange(querySegment.Results);
-            } while (querySegment.ContinuationToken != null);
-
-
-            return new OkObjectResult(_mapper.Map<List<MeetingModel>>(entities));
+            return new OkObjectResult(_mapper.Map<List<MeetingModel>>(meetings));
         }
     }
 }

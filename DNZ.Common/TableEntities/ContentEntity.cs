@@ -1,8 +1,8 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using System.Runtime.Serialization;
 
 namespace DNZ.Common.TableEntities
 {
-    public class ContentEntity : TableEntity
+    public class ContentEntity : BaseTableEntity
     {
         #region Constants
 
@@ -16,7 +16,7 @@ namespace DNZ.Common.TableEntities
 
         public string HtmlContent { get; set; }
 
-        [IgnoreProperty]
+        [IgnoreDataMember]
         public string Name
         {
             get => RowKey;

@@ -10,6 +10,8 @@
 footer {
     background-color: rgb(36, 45, 58);
     color: white;
+    margin-top: 20px;
+    padding-top: 20px;
 }
 
     footer a {
@@ -28,6 +30,9 @@ footer {
         padding: 0;
     }
 
+header {
+	padding-bottom: 20px;
+}
 header .container-fluid {
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) ), url('/images/header00.webp');
 }
@@ -135,3 +140,7 @@ footer {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.fa-dnz {
+	font-size: 2rem;
+}

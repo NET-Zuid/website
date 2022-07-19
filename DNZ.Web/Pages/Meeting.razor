@@ -1,20 +1,20 @@
 ﻿@page "/meeting/{year}/{slug}"
 @inject HttpClient _httpClient;
 
-@if (_meeting != null)
-{
-    <PageTitle>.NET Zuid - @_meeting.Headline</PageTitle>
-
-    <div class="row">
-        <h1>@_meeting.Headline</h1>
-        <p>@_meeting.Description</p>
-    </div>
-}
-else
-{
-    <p>Load this!</p>
-}
-
+<div class="container">
+    @if (_meeting != null)
+    {
+        <PageTitle>.NET Zuid - @_meeting.Headline</PageTitle>
+        <div class="row">
+            <h1>@_meeting.Headline</h1>
+            <p>@_meeting.Description</p>
+        </div>
+    }
+    else
+    {
+        <p>Loading meeting!</p>
+    }
+</div>
 
 @code {
     [Parameter] public string? year { get; set; }

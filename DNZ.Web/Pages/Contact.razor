@@ -1,50 +1,59 @@
 ﻿@page "/contact"
 @inject HttpClient _httpClient;
 
-<div class="row">
-    <div class="col">
-        <Content Name="contact" />
-        <div class="text-end">
-            <a target="_blank" href="https://twitter.com/dotNetZuid"><i class="fa fa-twitter"></i></a>
-            <a target="_blank" href="https://www.linkedin.com/company/stichting-net-zuid"><i class="fa fa-linkedin"></i></a>
-        </div>
-    </div>
-    <div class="col">
-
-    <EditForm Model="@_contactModel" OnValidSubmit="HandleValidSubmitAsync">
-        <DataAnnotationsValidator />
-        <div class="row mb-3">
-            <div class="col-3">
-                <label class="form-label" for="name">Naam</label>
-            </div>
-            <div class="col-9">
-                <InputText id="name" class="form-control" @bind-Value="_contactModel.Name" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-3">
-                <label class="form-label" for="email">E-mail adres</label>
-            </div>
-            <div class="col-9">
-                <InputText type="email" id="email" class="form-control" @bind-Value="_contactModel.Email" />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h3>.NET Zuid foundation</h3>
+                    <p>KvK: 65171063 (Eindhoven)</p>
+                    <p>
+                        Contact us through the form, via social media or send us an e-mail at <a href="mailto:info@dotnetzuid.nl">info@dotnetzuid.nl</a>.
+                    </p>
+                </div>
+            </div>                
+            <div class="row">
+                <div class="col text-end">
+                    <a target="_blank" href="https://twitter.com/dotNetZuid" class="fa-dnz"><i class="fa-brands fa-twitter"></i></a>
+                    <a target="_blank" href="https://www.linkedin.com/company/stichting-net-zuid" class="fa-dnz"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-3">
-                <label class="form-label" for="message">Bericht</label>
-            </div>
-            <div class="col-9">
-                <InputTextArea id="message" Text class="form-control" @bind-Value="_contactModel.Message" />
-            </div>
+        <div class="col">
+            <EditForm Model="@_contactModel" OnValidSubmit="HandleValidSubmitAsync">
+                <DataAnnotationsValidator />
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label class="form-label" for="name">Name</label>
+                    </div>
+                    <div class="col-9">
+                        <InputText id="name" class="form-control" @bind-Value="_contactModel.Name" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label class="form-label" for="email">E-mail address</label>
+                    </div>
+                    <div class="col-9">
+                        <InputText type="email" id="email" class="form-control" @bind-Value="_contactModel.Email" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label class="form-label" for="message">Message</label>
+                    </div>
+                    <div class="col-9">
+                        <InputTextArea id="message" Text class="form-control" @bind-Value="_contactModel.Message" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-end">
+                        <input type="submit" class="btn btn-primary" value="Send" disabled="@_busy" />
+                    </div>
+                </div>
+            </EditForm>
         </div>
-        <div class="row">
-            <div class="col text-end">
-                <input type="submit" class="btn btn-primary" value="Verzenden" disabled="@_busy"/>
-            </div>
-        </div>
-    </EditForm>
-    
-    
     </div>
 </div>
 
@@ -61,7 +70,7 @@
         if (result.IsSuccessStatusCode)
         {
             _contactModel = new ContactModel();
-            _message = "Je bericht werd succesvol verstuurd.";
+            _message = "Your message was sent successfuly.";
         }
     }
 }

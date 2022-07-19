@@ -1,31 +1,37 @@
 ﻿@inject HttpClient _httpClient;
 
-@if (_content == null)
-{
-    <h1>@Name</h1>
-    <div class="row mt-5">
-        <div class="col text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+<div class="container">
+    @if (_content == null)
+    {
+        <div class="row">
+            <div class="col">
+                <h1>@Name</h1>
             </div>
         </div>
-    </div>
-}
-else
-{
-    <PageTitle>.NET Zuid - @_content.Title</PageTitle>
-    <h1>@_content.Title</h1>
-    <div class="row">
-        <div class="col">
-            @((MarkupString)_content.HtmlContent)
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
         </div>
-    </div>
-}
+    }
+    else
+    {
+        <PageTitle>.NET Zuid - @_content.Title</PageTitle>
+        <div class="row">
+            <div class="col">
+                <h1>@_content.Title</h1>
+            </div>
+        </div>
+        @((MarkupString)_content.HtmlContent)
+    }
+</div>
 
 @code {
     [Parameter]
     public string? Name { get; set; }
-    
+
     private ContentModel? _content;
 
     protected override async Task OnInitializedAsync()

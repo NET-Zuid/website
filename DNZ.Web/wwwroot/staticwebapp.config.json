@@ -1,36 +1,54 @@
 {
-  "routes": [
-    {
-      "route": "/profile",
-      "allowedRoles": [ "authenticated" ]
-    },
-    {
-      "route": "/admin/*",
-      "allowedRoles": [ "administrator" ]
-    },
-    {
-      "route": "/images/*",
-      "headers": {
-        "cache-control": "must-revalidate, max-age=15770000"
+  "auth": {
+    "identityProviders": {
+      "customOpenIdConnectProviders": {
+        "aadb2c": {
+          "registration": {
+            "clientIdSettingName": "AADB2C_PROVIDER_CLIENT_ID",
+            "clientCredential": {
+              "clientSecretSettingName": "AADB2C_PROVIDER_CLIENT_SECRET"
+            },
+            "openIdConnectConfiguration": {
+              "wellKnownOpenIdConfiguration": "https://dotnetzuid.b2clogin.com/dotnetzuid.onmicrosoft.com/B2C_1_dotnetzuid_susi/v2.0/.well-known/openid-configuration"
+            }
+          },
+          "login": {
+            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "scopes": [],
+            "loginParameterNames": []
+          }
+        }
       }
-    },
-    {
-      "route": "/api/*",
-      "methods": [ "PUT", "POST", "PATCH", "DELETE" ],
-      "allowedRoles": [ "administrator" ]
-    }
-  ],
-  "navigationFallback": {
-    "rewrite": "index.html",
-    "exclude": [ "/images/*.{png,jpg,gif,webp}", "/css/*" ]
-  },
-  "responseOverrides": {
-    "401": {
-      "redirect": "/login",
-      "statusCode": 302
     }
   },
-  "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+  "routes": [
+  {
+    "route": "/profile",
+    "allowedRoles": [ "authenticated" ]
+  },
+  {
+    "route": "/admin/*",
+    "allowedRoles": [ "administrator" ]
+  },
+  {
+    "route": "/images/*",
+    "headers": {
+      "cache-control": "must-revalidate, max-age=15770000"
+    }
+  },
+  {
+    "route": "/api/*",
+    "methods": [ "PUT", "POST", "PATCH", "DELETE" ],
+    "allowedRoles": [ "administrator" ]
   }
-}
+], "navigationFallback": {
+  "rewrite": "index.html",
+  "exclude": [ "/images/*.{png,jpg,gif,webp}", "/css/*" ]
+}, "responseOverrides": {
+  "401": {
+    "redirect": "/login",
+    "statusCode": 302
+  }
+}, "globalHeaders": {
+  "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+} }

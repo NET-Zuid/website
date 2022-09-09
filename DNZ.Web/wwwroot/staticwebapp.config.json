@@ -49,7 +49,7 @@
   ],
   "navigationFallback": {
     "rewrite": "index.html",
-    "exclude": [ "/images/*.{png,jpg,gif,webp}", "/css/*" ]
+    "exclude": [ "/images/*.{png,jpg,gif,webp}", "/css/*", "/.auth/*" ]
   },
   "responseOverrides": {
     "401": {

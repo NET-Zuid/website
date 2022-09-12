@@ -19,11 +19,14 @@
     else
     {
         <PageTitle>.NET Zuid - @_content.Title</PageTitle>
-        <div class="row">
-            <div class="col">
-                <h1>@_content.Title</h1>
+        if (_content.ShowTitle)
+        {
+            <div class="row">
+                <div class="col">
+                    <h1>@_content.Title</h1>
+                </div>
             </div>
-        </div>
+        }
         @((MarkupString)_content.HtmlContent)
     }
 </div>

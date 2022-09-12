@@ -25,6 +25,8 @@ namespace DNZ.Common.TableEntities
 
         public string Title { get; set; }
 
+        public bool ShowTitle { get; set; } = true;
+
         #endregion
 
         #region Constructors

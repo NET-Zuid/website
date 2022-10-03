@@ -12,4 +12,3 @@ The tech stack we're using:
 * Azure Functions
 * Table Storage
 * Azure AD B2C
-* 
